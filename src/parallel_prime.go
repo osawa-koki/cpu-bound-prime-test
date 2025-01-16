@@ -17,10 +17,11 @@ func NewParallelPrimeChecker() *ParallelPrimeChecker {
 }
 
 func (p *ParallelPrimeChecker) ParallelFindPrimesInRange(start, end int) []int {
-	results := make([][]int, p.numWorkers)
-	var wg sync.WaitGroup
-
 	rangeSize := (end - start + 1) / p.numWorkers
+
+	var mu sync.Mutex
+	var allPrimes []int
+	var wg sync.WaitGroup
 
 	for i := 0; i < p.numWorkers; i++ {
 		wg.Add(1)
@@ -30,25 +31,23 @@ func (p *ParallelPrimeChecker) ParallelFindPrimesInRange(start, end int) []int {
 			workerEnd = end
 		}
 
-		go func(workerID, s, e int) {
+		go func(s, e int) {
 			defer wg.Done()
 			var localPrimes []int
+
 			for n := s; n <= e; n++ {
 				if IsPrime(n) {
 					localPrimes = append(localPrimes, n)
 				}
 			}
-			results[workerID] = localPrimes
-		}(i, workerStart, workerEnd)
+
+			mu.Lock()
+			allPrimes = append(allPrimes, localPrimes...)
+			mu.Unlock()
+		}(workerStart, workerEnd)
 	}
 
 	wg.Wait()
-
-	var merged []int
-	for _, r := range results {
-		merged = append(merged, r...)
-	}
-
-	sort.Ints(merged)
-	return merged
+	sort.Ints(allPrimes)
+	return allPrimes
 }
