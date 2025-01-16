@@ -7,7 +7,7 @@ import (
 
 func main() {
 	start := 1
-	end := 1000000
+	end := 1_000_000
 
 	{
 		sequentialChecker := NewSequentialPrimeChecker()
