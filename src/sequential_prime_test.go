@@ -8,7 +8,7 @@ func BenchmarkSequentialIsPrime(b *testing.B) {
 	checker := NewSequentialPrimeChecker()
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		checker.SequentialIsPrime(999983) // 大きな素数でテスト
+		checker.SequentialIsPrime(999983)
 	}
 }
 
