@@ -6,17 +6,17 @@ import (
 	"sync"
 )
 
-type ParallelPrimeChecker struct {
+type GoroutinePrimeChecker struct {
 	numWorkers int
 }
 
-func NewParallelPrimeChecker() *ParallelPrimeChecker {
-	return &ParallelPrimeChecker{
+func NewGoroutinePrimeChecker() *GoroutinePrimeChecker {
+	return &GoroutinePrimeChecker{
 		numWorkers: runtime.NumCPU(),
 	}
 }
 
-func (p *ParallelPrimeChecker) ParallelFindPrimesInRange(start, end int) []int {
+func (p *GoroutinePrimeChecker) GoroutineFindPrimesInRange(start, end int) []int {
 	rangeSize := (end - start + 1) / p.numWorkers
 
 	var mu sync.Mutex

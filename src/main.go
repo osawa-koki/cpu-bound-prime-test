@@ -24,13 +24,13 @@ func main() {
 	}
 
 	{
-		parallelChecker := NewParallelPrimeChecker()
+		goroutineChecker := NewGoroutinePrimeChecker()
 		startTime := time.Now()
-		primes := parallelChecker.ParallelFindPrimesInRange(start, end)
+		primes := goroutineChecker.GoroutineFindPrimesInRange(start, end)
 		duration := time.Since(startTime)
 
 		fmt.Println("----- ----- ----- ----- -----")
-		fmt.Println("ParallelPrimeChecker")
+		fmt.Println("GoroutinePrimeChecker")
 		fmt.Println("From", start, "to", end)
 		fmt.Println("Prime count:", len(primes))
 		fmt.Println("Execution time:", duration)
