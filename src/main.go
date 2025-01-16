@@ -1,14 +1,25 @@
 package main
 
-import "fmt"
-
-func Run() error {
-	fmt.Println("Hello, World!")
-	return nil
-}
+import (
+	"fmt"
+	"time"
+)
 
 func main() {
-	if err := Run(); err != nil {
-		panic(err)
+	start := 1
+	end := 1000000
+
+	{
+		sequentialChecker := NewSequentialPrimeChecker()
+		startTime := time.Now()
+		primes := sequentialChecker.SequentialFindPrimesInRange(start, end)
+		duration := time.Since(startTime)
+
+		fmt.Println("----- ----- ----- ----- -----")
+		fmt.Println("SequentialPrimeChecker")
+		fmt.Println("From", start, "to", end)
+		fmt.Println("Prime count:", len(primes))
+		fmt.Println("Execution time:", duration)
+		fmt.Println("----- ----- ----- ----- -----")
 	}
 }

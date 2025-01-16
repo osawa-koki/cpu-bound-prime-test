@@ -15,7 +15,7 @@ jobs:
       - name: Install dependencies
         run: go mod download
       - name: Build
-        run: go build -ldflags="-w -s" -o main.out ./src/main.go
+        run: go build -ldflags="-w -s" -o main.out $(find ./src/ -name "*.go" -not -name "*_test.go")
       - name: golangci-lint
         # golangci-lint run --timeout=5m
         uses: golangci/golangci-lint-action@v6
