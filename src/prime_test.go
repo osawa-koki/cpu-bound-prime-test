@@ -4,18 +4,6 @@ import (
 	"testing"
 )
 
-func BenchmarkIsPrime(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		IsPrime(999983) // 大きな素数でテスト
-	}
-}
-
-func BenchmarkFindPrimesInRange(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		FindPrimesInRange(1, 10000)
-	}
-}
-
 func TestIsPrime(t *testing.T) {
 	tests := []struct {
 		name     string
@@ -38,5 +26,11 @@ func TestIsPrime(t *testing.T) {
 				t.Errorf("IsPrime(%d) = %v, want %v", tt.input, got, tt.expected)
 			}
 		})
+	}
+}
+
+func BenchmarkIsPrime(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		IsPrime(999983) // 大きな素数でテスト
 	}
 }
