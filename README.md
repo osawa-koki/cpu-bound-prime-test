@@ -15,3 +15,18 @@ go build -ldflags="-w -s" -o ./main.out $(find ./src/ -name "*.go" -not -name "*
 chmod +x ./main.out
 ./main.out
 ```
+
+```result
+----- ----- ----- ----- -----
+SequentialPrimeChecker
+From 1 to 1000000
+Prime count: 78498
+Execution time: 18.429458ms
+----- ----- ----- ----- -----
+----- ----- ----- ----- -----
+GoroutinePrimeChecker
+From 1 to 1000000
+Prime count: 78498
+Execution time: 7.228208ms
+----- ----- ----- ----- -----
+```
